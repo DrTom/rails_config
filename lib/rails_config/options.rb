@@ -1,5 +1,8 @@
 require 'ostruct'
 module RailsConfig
+
+  MERGE_OPTIONS=  {:preserve_unmergeables => false, :knockout_prefix => '¡DELETE!'}
+
   class Options < OpenStruct
     include Enumerable
 
@@ -23,7 +26,7 @@ module RailsConfig
         key.to_s.split('.').reverse.each do |element|
           hash = {element => hash}
         end
-        DeepMerge.deep_merge!(hash, conf, :preserve_unmergeables => false)
+        DeepMerge.deep_merge!(hash, conf,MERGE_OPTIONS)
       end
 
       merge!(conf[RailsConfig.const_name] || {})
@@ -40,7 +43,7 @@ module RailsConfig
         if conf.empty?
           conf = source_conf
         else
-          DeepMerge.deep_merge!(source_conf, conf, :preserve_unmergeables => false)
+          DeepMerge.deep_merge!(source_conf, conf, MERGE_OPTIONS)
         end
       end
 
@@ -78,7 +81,7 @@ module RailsConfig
 
     def merge!(hash)
       current = to_hash
-      DeepMerge.deep_merge!(hash.dup, current)
+      DeepMerge.deep_merge!(hash.dup, current, MERGE_OPTIONS)
       marshal_load(__convert(current).marshal_dump)
       self
     end

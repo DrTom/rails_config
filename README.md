@@ -4,6 +4,16 @@
 
 # RailsConfig
 
+THIS IS A FORK! 
+
+This variant of the gem sets the so called _knockout_prefix_ to `¡DELETE!`
+instead of disabling it. 
+
+There seems to be no way to delete an already set value in the original version
+of this gem. The underlying merge routine (which seems to copied from
+somewhere) does have this capability. It is just not exposed. 
+
+
 ## Summary
 
 RailsConfig helps you easily manage environment specific Rails settings in an easy and usable manner
