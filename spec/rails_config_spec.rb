@@ -162,9 +162,9 @@ describe RailsConfig do
       config.inner2.inner2_inner.marshal_dump.keys.size.should eq 3
     end
 
-    it "should merge arrays from multiple configs" do
-      config.arraylist1.size.should eq 6
-      config.arraylist2.inner.size.should eq 6
+    it "should NOT merge arrays from multiple configs" do
+      config.arraylist1.size.should eq 3
+      config.arraylist2.inner.size.should eq 3
     end
   end
 

@@ -1,17 +1,37 @@
-[![Build Status](https://api.travis-ci.org/railsconfig/rails_config.png?branch=master)](http://travis-ci.org/railsconfig/rails_config)
-[![Gem Version](https://badge.fury.io/rb/rails_config.svg)](http://badge.fury.io/rb/rails_config)
-[![Dependency Status](https://gemnasium.com/railsjedi/rails_config.svg)](https://gemnasium.com/railsjedi/rails_config)
-
 # RailsConfig
 
 THIS IS A FORK! 
 
-This variant of the gem sets the so called _knockout_prefix_ to `¡DELETE!`
-instead of disabling it. 
+This variant of the `rails_config` gem uses a much easier to understand and
+therefore easier to use and more reliable deep-merge strategy. The key 
+property can be summarized in the following sentence:  
 
-There seems to be no way to delete an already set value in the original version
-of this gem. The underlying merge routine (which seems to copied from
-somewhere) does have this capability. It is just not exposed. 
+** Values which are to be merged in and are not maps/hashes always overwrite
+exiting values. **
+
+
+The formal descriptions reads as follows: 
+
+
+Let `M1` and `M2` be a maps, and let `M` be the result of `deep_merge M1 M2`
+Then the  following holds true:
+
+1. If the key `k` with the value `v1` is present in `M1` but not in `M2`, then
+  the key value pair `(k,v1)` is be present in `M`.
+
+2. If the key `k` with the value `v2` is present in `M2` but not in `M1`, then
+  the key value pair `(k,v2)` is be present in `M`.
+
+3. If `k` is present in `M1` and `M2`
+
+    1. and  `v1` and `v2` are both maps, then the pair `(k,  deep_merge v1 v2 )` is present in `M`.
+
+    2. otherwise the pair `(k,v2)` is present in `M`.
+
+
+The implementation comprises about 30 lines whereas the original one extends to
+about 180 lines including some rather diffuse comments. 
+
 
 
 ## Summary
